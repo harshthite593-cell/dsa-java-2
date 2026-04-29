@@ -10,6 +10,6 @@ class Solution {
             }
         }
 
-        return head; // ✅ THIS WAS MISSING
+        return head;
     }
 }

@@ -1,5 +1,4 @@
 public class Dll {
-
     // Node class
     static class Node {
         int data;
