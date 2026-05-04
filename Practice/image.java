@@ -1,13 +1,61 @@
-class Solution {
-    public int[][] flipAndInvertImage(int[][] image) {
-        for (int[] row :image){
-            for (int i = 0; i < (image[0].length + 1)/2; i++) {
-                row[i] = row[i]^1;
-                int temp =row[i]^1;
-                row[i] =row[image[0].length-i-1]^1;
-                row[image[0].length-i-1]=temp;
-            }
-        }return  image;
+import java.util.Stack;
+
+class MyQueue {
+    Stack<Integer> s1 = new Stack<>();
+    Stack<Integer> s2 =  new Stack<>();
+    public MyQueue() {
 
     }
-}
+
+    public void push(int x) {
+
+
+    while(!s1.isEmpty()){
+        s2.push(s1.pop());
+    }
+       s2.push(x);
+    while(!s2.isEmpty()){
+        s1.push(s2.pop());
+    }
+    }
+
+    public int pop() {
+        if (empty()) {
+            throw new RuntimeException("Queue is empty");
+        }
+
+        while(!s1.isEmpty()){
+            s2.push(s1.pop());
+        }
+        int removed = s2.pop();
+        while(!s2.isEmpty()){
+            s1.push(s2.pop());
+        }return removed;
+    }
+
+    public int peek() {
+        if (empty()) {
+            throw new RuntimeException("Queue is empty");
+        }
+        while(!s1.isEmpty()){
+            s2.push(s1.pop());
+        }
+        int peek = s2.peek();
+        while(!s2.isEmpty()){
+            s1.push(s2.pop());
+        }return peek;
+    }
+    public boolean empty() {
+        return s1.isEmpty() && s2.isEmpty();
+    }
+    }
+
+
+/**
+ * Your MyQueue object will be instantiated and called as such:
+ * MyQueue obj = new MyQueue();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.peek();
+ * boolean param_4 = obj.empty();
+ */
