@@ -12,14 +12,11 @@ public class BinarySearchTree {
             this.height = 0;
         }
     }
-
     Node root;
-
     // Constructor
     public BinarySearchTree() {
         root = null;
     }
-
     // Check if tree is empty
     public boolean isEmpty() {
         return root == null;
@@ -48,7 +45,6 @@ public class BinarySearchTree {
         } else if (value > node.value) {
             node.right = insert(value, node.right);
         }
-
         // update height
         node.height = Math.max(height(node.left), height(node.right)) + 1;
 
