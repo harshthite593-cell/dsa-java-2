@@ -1,28 +1,33 @@
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 public class problem383 {
     static void main(String[] args) {
-        String ransomNote = "aa", magazine = "aab";
-        int count =0;
-        Set<Character> set = new HashSet<>();
-        Set<Character> set2 = new HashSet<>();
-        char [] arr = ransomNote.toCharArray();
-        char [] arr2 = magazine.toCharArray();
-        if(arr.length > arr2.length) {
-            System.out.println("less in length");
+        String ransomNote = "b", magazine = "a";
+
+        if(ransomNote.length() > magazine.length()){
+            System.out.println("error unequal length");
         }
-       for(int i=0;i<arr2.length;i++) {
-     if(i<arr.length) set.add(arr[i]);
-       set2.add(arr2[i]);
-       }
-       for(int i=0;i<arr.length;i++) {
-           if(set2.contains(arr[i])) {
-               set2.remove(arr[i]);
-               count++;
-           }
-       }if (count == arr.length){
-            System.out.println("equal");
+        HashMap<Character,Integer> counts = new HashMap<Character,Integer>();
+        for (char c : magazine.toCharArray()) {
+            counts.put(c, counts.getOrDefault(c, 0) + 1);
+        }
+
+        // Step 2: Iterate through ransomNote and "consume" the characters
+        boolean possible = true;
+        for (char c : ransomNote.toCharArray()) {
+            // If the character isn't there or we ran out (count is 0)
+            if (!counts.containsKey(c) || counts.get(c) == 0) {
+                possible = false;
+                break;
+            }
+            // Reduce the count by 1
+            counts.put(c, counts.get(c) - 1);
+        } if (possible) {
+            System.out.println("yes");
+        } else {
+            System.out.println("no");
         }
     }
 }
